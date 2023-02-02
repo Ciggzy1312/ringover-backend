@@ -6,7 +6,7 @@ const registerUserHandler = async (req, res) => {
         const user = await registerUser(req.body);
         return res.status(201).json({ message: "User created successfully", user });
     } catch (error) {
-        logger.error(error);
+        return res.status(400).json({ message: error.message });
     }
 }
 
@@ -21,7 +21,7 @@ const loginUserHandler = async (req, res) => {
         res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' });
         return res.status(200).json({ message: "User logged in successfully", token });
     } catch (error) {
-        logger.error(error);
+        return res.status(400).json({ message: error });
     }
 }
 
